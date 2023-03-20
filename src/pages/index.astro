@@ -1,0 +1,26 @@
+---
+import Layout from '@layouts/Layout.astro'
+import GetMaxDuration from '@components/GetMaxDuration'
+import GetScoreCount from '@components/GetScoreCount'
+import GetCountPlatform from '@components/GetCountPlatform';
+import GetActor from '@components/GetActor';
+---
+
+<Layout title="Movies PI.">
+	<main>
+		<div class="max-w-7xl">
+			<GetMaxDuration client:load />
+			<GetScoreCount client:load />
+			<GetCountPlatform />
+			<GetActor />
+		</div>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1.5rem;
+		max-width: 60ch;
+	}
+</style>
