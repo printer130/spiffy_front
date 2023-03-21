@@ -16,7 +16,7 @@
 ### Parametros:
 - **platform:** amazon, hulu, disney, netflix
 - **duration_type:** seasons, min
-- **year:** 1910-2020
+- **year:** 1920-2021
 - **scored:** 1-5
 
 ### Modelo de machine learning entrenado
