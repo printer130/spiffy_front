@@ -1,24 +1,26 @@
 import { useState } from "preact/hooks"
 import { BASE_URL } from 'constants.js'
-
-const b_url = "https://api-pi-82r8.onrender.com/api"
+import { Button } from './Button'
+import { Description } from '@components/Description'
 
 export default function GetMaxDuration() {
   const [data, setData] = useState()
   const [platform, setPlatform] = useState('netflix')
   const [year, setYear] = useState('2015')
   const [type, setType] = useState('seasons')
-
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setLoading(true)
+    setData('')
     const URL = `${BASE_URL}/get_max_duration/?platform=${platform}&year=${year}&duration_type=${type}`
-    console.log(platform)
-    console.log(year)
-    console.log(type)
     fetch(URL)
       .then(data => data.json())
-      .then(json => setData(json.data))
+      .then(json => {
+        setData(json)
+        setLoading(false)
+      })
   }
 
   const handlePlatform = (e) => {
@@ -36,9 +38,9 @@ export default function GetMaxDuration() {
 
   return (
     <div className="tabs">
-      <p>
-        Película con mayor duración con filtros opcionales de AÑO, PLATAFORMA Y TIPO DE DURACIÓN.
-      </p>
+      <Description>
+        Película con mayor duración.
+      </Description>
       <form onSubmit={handleSubmit}>
         <label for="platform" class="block mb-2 text-sm font-medium text-gray-900">
           Plataforma
@@ -50,21 +52,25 @@ export default function GetMaxDuration() {
           <option value="hulu">Hulu</option>
         </select>
         <label for="type" class="block mb-2 text-sm font-medium text-gray-900">
-          Tipo de duracion
+          Tipo de duracion por:
         </label>
         <select id="type" onChange={handleType} class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
-          <option selected value="seasons">Seasons</option>
-          <option value="min">Minutes</option>
+          <option selected value="seasons">Temporadas</option>
+          <option value="min">Minutos</option>
         </select>
         <div>
           <label for="year" class="block mb-2 text-sm font-medium text-gray-900">Año</label>
           <input placeholder='2015' onChange={handleYear} type="number" id="year" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500" />
         </div>
-        <button>Get Max Duration</button>
+        <Button loading={loading}>
+          Buscar
+        </Button>
       </form>
-      <div className='bg-[#eee] text-base'>
-        {data && data}
-      </div>
+      {
+        data && <div className='bg-[#eee] text-base text-center'>
+          {data.data}
+        </div>
+      }
     </div>
   )
 }

@@ -1,30 +1,37 @@
 import { useState } from "preact/hooks"
 import { BASE_URL } from 'constants.js'
-
-const b_url = "https://api-pi-82r8.onrender.com/api"
+import { Button } from './Button'
+import { Description } from '@components/Description'
 
 export default function GetCountPlatform() {
   const [data, setData] = useState()
   const [platform, setPlatform] = useState('netflix')
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setLoading(true)
+    setData()
     const URL = `${BASE_URL}/get_count_platform/?platform=${platform}`
     fetch(URL)
       .then(data => data.json())
-      .then(json => setData(json.data))
+      .then(json => {
+        setData(json.data)
+        setLoading(false)
+      })
   }
 
   const handlePlatform = (e) => {
+    e.preventDefault()
     const val = e.target.value
     setPlatform(val)
   }
 
   return (
     <div className="tabs">
-      <p>
-        Cantidad de películas por plataforma con filtro de PLATAFORMA.
-      </p>
+      <Description>
+        Cantidad de películas por plataforma.
+      </Description>
       <form onSubmit={handleSubmit}>
         <label for="platform" class="block mb-2 text-sm font-medium text-gray-900">
           Plataforma
@@ -35,9 +42,11 @@ export default function GetCountPlatform() {
           <option value="amazon">Amazon Prime</option>
           <option value="hulu">Hulu</option>
         </select>
-        <button>Count by platform</button>
+        <Button loading={loading}>
+          Obtener cantidad
+        </Button>
       </form>
-      <div className='bg-[#eee] text-base'>
+      <div className='bg-[#eee] text-base text-center'>
         {data && data}
       </div>
     </div>
