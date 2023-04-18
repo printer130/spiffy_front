@@ -17,7 +17,7 @@ export default function GetActor() {
     fetch(URL)
       .then(data => data.json())
       .then(json => {
-        setData(json.data)
+        setData(json)
         setLoading(false)
       })
   }
@@ -31,7 +31,7 @@ export default function GetActor() {
     const val = e.target.value
     setYear(val)
   }
-
+  console.log(data)
   return (
     <div className="tabs">
       <Description>
@@ -58,7 +58,7 @@ export default function GetActor() {
         </Button>
       </form>
       <div className='bg-[#eee] text-base text-center'>
-        {data && data._id}
+        {data?.actor && data.actor}
       </div>
     </div>
   )

@@ -15,10 +15,11 @@ export default function GetScoreCount() {
     setLoading(true)
     setData()
     const URL = `${BASE_URL}/get_score_count/?platform=${platform}&year=${year}&scored=${score}`
+    console.log({platform,score,year})
     fetch(URL)
       .then(data => data.json())
       .then(json => {
-        setData(json.data)
+        setData(json)
         setLoading(false)
       })
   }
@@ -70,7 +71,7 @@ export default function GetScoreCount() {
         </Button>
       </form>
       <div className='bg-[#eee] text-base text-center'>
-        {data && data}
+        {data?.count && data.count}
       </div>
     </div>
   )

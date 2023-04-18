@@ -4,16 +4,20 @@ import GetMaxDuration from '@components/GetMaxDuration'
 import GetScoreCount from '@components/GetScoreCount'
 import GetCountPlatform from '@components/GetCountPlatform';
 import GetActor from '@components/GetActor';
+import ProdPerCountry from '@components/ProdPerCountry';
+import GetContents from '@components/GetContents';
 ---
 
 <Layout title="Movies PI.">
 	<main>
 		<div class="max-w-7xl">
 			<h1 class="text-7xl font-black text-center py-8">Spiffy Front</h1>
-			<GetMaxDuration client:load />
-			<GetScoreCount client:load />
-			<GetCountPlatform client:load />
-			<GetActor client:load />
+			<GetMaxDuration client:only />
+			<GetScoreCount client:only />
+			<GetCountPlatform client:only />
+			<GetActor client:only />
+			<ProdPerCountry client:only />
+			<GetContents client:only />
 		</div>
 	</main>
 </Layout>

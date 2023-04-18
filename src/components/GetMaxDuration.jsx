@@ -15,6 +15,7 @@ export default function GetMaxDuration() {
     setLoading(true)
     setData('')
     const URL = `${BASE_URL}/get_max_duration/?platform=${platform}&year=${year}&duration_type=${type}`
+
     fetch(URL)
       .then(data => data.json())
       .then(json => {
@@ -67,8 +68,8 @@ export default function GetMaxDuration() {
         </Button>
       </form>
       {
-        data && <div className='bg-[#eee] text-base text-center'>
-          {data.data}
+        data?.pelicula && <div className='bg-[#eee] text-base text-center'>
+          {data.pelicula}
         </div>
       }
     </div>

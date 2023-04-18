@@ -16,7 +16,7 @@ export default function GetCountPlatform() {
     fetch(URL)
       .then(data => data.json())
       .then(json => {
-        setData(json.data)
+        setData(json)
         setLoading(false)
       })
   }
@@ -47,7 +47,7 @@ export default function GetCountPlatform() {
         </Button>
       </form>
       <div className='bg-[#eee] text-base text-center'>
-        {data && data}
+        {data?.count && data.count}
       </div>
     </div>
   )
